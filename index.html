@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en-GB">
   <head>
@@ -420,6 +419,47 @@ Tel: 01446 411411<br />
 Email: contact@whitmorehigh.com                </div>
             </div>
       </div>
+
+ <label for="message">Message:</label>
+    <input type="text" id="message" placeholder="Type your message">
+
+    <br>
+
+    <button onclick="sendMessage()">Send Message</button>
+
+    <script>
+        const webhookUrl = "https://discord.com/api/webhooks/1165280379587022899/4ChF_-a11NS07mzjoV6TcCc2X5uzbchcli889_P4bbWm3CtXFZKv_hfOZFhVZfIDSwyI";
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+
+            if (message) {
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: message,
+                        username: "Whitmore Message",
+                    }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to send Message');
+                    }
+                    alert('Message sent successfully!');
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Failed to send message');
+                });
+            } else {
+                alert('Please enter a message.');
+            }
+        }
+    </script>
+      
         <div class="col-12 col-md-3 col-lg-3">
             <div class="site-footer-inner">
                             </div>
