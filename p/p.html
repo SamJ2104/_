@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitmore High School</title>
+    <link rel="shortcut icon" href="https://whitmorehigh.org/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="iframeContainer"></div>
+    <script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
+    <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var inputUrl = urlParams.get('url');
+            var iframeContainer = document.getElementById('iframeContainer');
+            var isWhitmore = false;
+            var whitmoreUrl = "https://whitmorehigh.org";
+
+            function toggleUrl() {
+                if (isWhitmore) {
+                    iframeContainer.innerHTML = '<iframe is="x-frame-bypass" src="' + inputUrl + '"></iframe>';
+                } else {
+                    iframeContainer.innerHTML = '<iframe src="' + whitmoreUrl + '"></iframe>';
+                }
+                isWhitmore = !isWhitmore;
+            }
+
+            if (inputUrl) {
+                iframeContainer.innerHTML = '<iframe is="x-frame-bypass" src="' + inputUrl + '"></iframe>';
+            } else {
+                iframeContainer.textContent = 'Go Back and Put a Link in you Numpty';
+            }
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'F4') {
+                    toggleUrl();
+                }
+            });
+        };
+    </script>
+</body>
+</html>
